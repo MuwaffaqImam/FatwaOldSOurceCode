@@ -1,0 +1,74 @@
+@import '../../../../../assets/styles/variable.scss';
+
+#form-card {
+  padding: 0;
+  overflow: hidden;
+  max-width: 550px;
+}
+
+mat-card-content {
+  padding: 10px;
+}
+
+.header {
+  margin: 0 auto;
+}
+
+:host ::ng-deep .mat-card-header-text {
+  margin: 0;
+}
+
+.upload-container {
+  display: inline-block;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.drop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px dashed $cancel;
+  padding: 20px;
+}
+
+.is-dragging {
+  border: 2px solid $cancel;
+}
+
+.drop-icon {
+  transform: scale(2.5);
+  padding-bottom: 30px;
+}
+
+.upload-preview {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 50px;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 10px;
+}
+
+.success-list {
+  border: 2px dashed green;
+  background: rgba(0, 128, 0, 0.25);
+}
+
+.error-list {
+  border: 2px dashed red;
+  background: rgba(255, 0, 0, 0.25);
+}
+
+.message-list {
+  max-width: 200px;
+  padding: 10px;
+  border-radius: 4px;
+  list-style-type: none;
+}

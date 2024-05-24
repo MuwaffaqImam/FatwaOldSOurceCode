@@ -1,0 +1,28 @@
+<mat-card-actions>
+    <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="saveSettings()"
+    >
+        <mat-icon>save</mat-icon> {{ 'Save' | translate }}
+    </button>
+</mat-card-actions>
+
+<app-file-upload
+    class="inline-block"
+    [fileConfig]="fileConfig"
+    [fileListFormControl]="fileListFormControl"
+    [form]="form"
+    [formConfig]="formConfig"
+    title="{{ 'DocumentUpload' | translate }}"
+    [validationMessageList]="validationMessageList"
+    (emitFileSelect)="onFileSelect($event)"
+    (emitSubmit)="uploadDocument()"
+></app-file-upload>
+<img
+    [src]="imageBase64 | async"
+    alt="{{ 'FatawaDefaultImage' | translate }}"
+    width="200"
+    class="inline-block"
+/>

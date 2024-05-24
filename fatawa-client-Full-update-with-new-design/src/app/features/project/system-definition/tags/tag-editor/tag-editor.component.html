@@ -1,0 +1,66 @@
+<!-- ============================================================== -->
+<!-- Card Grid-->
+<!-- ============================================================== -->
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>{{ 'AddNewTag' | translate }}</mat-card-title>
+                <!-- ============================================================== -->
+                <!-- column -->
+                <!-- ============================================================== -->
+                <form
+                    [formGroup]="editorTagForm"
+                    (ngSubmit)="submitTag()"
+                    novalidate
+                    class="basic-form"
+                >
+                    <div fxLayout="row wrap">
+                        <!-- column -->
+                        <div fxFlex.gt-md="50" fxFlex="50">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Tage name"
+                                    formControlName="tagName"
+                                />
+                            </mat-form-field>
+                            <mat-hint
+                                *ngIf="
+                                    editorTagForm.controls['tagName'].hasError(
+                                        'required'
+                                    ) &&
+                                    editorTagForm.controls['tagName'].touched
+                                "
+                                class="text-danger font-14"
+                                >{{ 'MustIncludeTagName' | translate }}</mat-hint
+                            >
+                        </div>
+                        <div
+                            fxFlex.gt-sm="100"
+                            fxFlex="100"
+                            class="m-t-10 m-b-10"
+                        >
+                            <mat-checkbox
+                                color="primary"
+                                formControlName="enabled"
+                                class="m-r-10"
+                                >Enabled</mat-checkbox
+                            >
+                        </div>
+                        <br />
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="editorTagForm.invalid"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

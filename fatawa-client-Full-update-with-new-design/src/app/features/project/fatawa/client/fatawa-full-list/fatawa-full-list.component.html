@@ -1,0 +1,59 @@
+<app-add-question></app-add-question>
+<section class="inner-area section-padding--ptb_120 pb-100 pbsm-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div
+                    class="align-items-center d-flex justify-content-between mb-30 position-relative section-title align-items-center"
+                >
+                    <h2 class="m-0 title">الفتاوى</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-30">
+                <div class="container g-0 h-100">
+                    <div class="fatwa-container row">
+                        <div
+                            class="col-md-4"
+                            *ngFor="let fatawa of dataSource.data"
+                        >
+                            <div class="fatwa-box">
+                                <h6>
+                                    <a
+                                        style="color: black"
+                                        [routerLink]="
+                                            '/client/FatawaDescription/' +
+                                            fatawa.id
+                                        "
+                                    >
+                                        {{ fatawa.name }}</a
+                                    >
+                                </h6>
+                                <p class="">{{ fatawa.fatawaQuestion }}</p>
+                                <b>
+                                    <i
+                                        class="fa fa-calendar me-2 text-black-50"
+                                    ></i>
+                                    {{ 'FatwaNo' | translate }} :
+                                    {{ fatawa.id }}
+                                    |
+                                    {{
+                                        fatawa.updatedDate | date: 'dd-MM-yyyy'
+                                    }}
+                                    |
+                                    {{ fatawa.fatawaDepartmentName }}
+                                </b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 fatwa-box-more">
+                                <a href="#">عرض المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

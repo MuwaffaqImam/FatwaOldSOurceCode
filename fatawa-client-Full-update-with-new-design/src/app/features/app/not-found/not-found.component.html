@@ -1,0 +1,12 @@
+<app-banner></app-banner>
+<main class="container">
+    <div class="child">
+        <h1 class="not-found-status">404</h1>
+        <p>{{ 'SomethingWrong' | translate }}</p>
+        <div class="row">
+            <button mat-button (click)="back()">
+                {{ 'GoBack' | translate }}
+            </button>
+        </div>
+    </div>
+</main>

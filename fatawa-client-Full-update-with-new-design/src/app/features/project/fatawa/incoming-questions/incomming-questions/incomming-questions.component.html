@@ -1,0 +1,49 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div class="p-12" fxFlex.gt-sm="35" fxFlex.gt-xs="35" fxFlex="100">
+                <mat-form-field>
+                    <mat-select
+                        [disabled]="currentUserType == 'StudentAdmin'"
+                        (selectionChange)="changeQuastionStatusId($event.value)"
+                        placeholder="{{ 'QusetionStatus' | translate }}"
+                        [(value)]="selectedStatus"
+                    >
+                        <mat-option
+                            *ngFor="
+                                let status of QuastionsStatus;
+                                let i = index
+                            "
+                            [value]="i + 1"
+                        >
+                            {{ status | translate }}</mat-option
+                        >
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+            >
+                <app-data-grid-view
+                    [gridDataSource]="dataSource"
+                    [displayedColumns]="[
+                        'id',
+                        'fatawaQuestion',
+                        'askedFullName',
+                        'createdDate'
+                    ]"
+                    [lengthData]="length"
+                    [PaginatorIndex]="paginationIndex"
+                    [isShowMainActionControls]="false"
+                    (onInStatusRow)="onActionRowGrid($event)"
+                    [additionalColumns]="initialAdditionalColumns()"
+                    (onPagination)="onActionRowGrid($event)"
+                >
+                </app-data-grid-view>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

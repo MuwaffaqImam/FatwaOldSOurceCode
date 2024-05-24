@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-content>
+        <app-user-edit-control
+            [IsShowAddButton]="false"
+            SearchPlaceHolder="{{ 'Search' | translate }}"
+            (searchChange)="applyFilter($event)"
+        ></app-user-edit-control>
+        <app-tree
+            (onEditNode)="onActionNodeClick($event)"
+            (onDeleteNode)="onActionNodeClick($event)"
+            (onAddNode)="onActionNodeClick($event)"
+            (onNodeMovedUp)="onActionNodeClick($event)"
+            (onNodeMovedDown)="onActionNodeClick($event)"
+        >
+        </app-tree>
+    </mat-card-content>
+</mat-card>

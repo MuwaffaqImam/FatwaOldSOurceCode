@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{ dialog.title }}</h2>
+<mat-dialog-content class="content-container">
+    <ng-container *ngFor="let message of dialog.messageList">
+        <p class="content-span full-width">{{ message | translate }}</p>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <ng-container *ngIf="dialog.showCancel">
+        <button
+            id="cancel-button"
+            class="mat-elevation-z0"
+            type="button"
+            mat-raised-button
+            [mat-dialog-close]="false"
+        >
+            {{ 'Cancel' | translate | uppercase }}
+        </button>
+    </ng-container>
+    <button
+        id="form-submit-button"
+        class="mat-elevation-z0"
+        type="submit"
+        mat-raised-button
+        color="accent"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+        (click)="submit()"
+    >
+        {{ dialog.action | translate | uppercase }}
+    </button>
+</mat-dialog-actions>

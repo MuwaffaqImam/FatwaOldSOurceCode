@@ -1,0 +1,97 @@
+<app-add-question></app-add-question>
+<section class="fatawi-area section-padding--ptb_120 pb-100 pbsm-0">
+    <div class="container">
+        <div
+            class="row"
+            *ngIf="
+                _router.url.indexOf('/client/FatawaDescription') ||
+                _router.url.indexOf('/client/Fatawas') ||
+                _router.url.indexOf('/client/department')
+            "
+        >
+            <div class="col-12">
+                <div
+                    class="align-items-center d-inline-flex justify-content-between mb-30 position-relative section-title align-items-center"
+                >
+                    <h2 class="m-0 title">قسم : {{ departmentname }}</h2>
+                    <!-- <h6 class="m-0 title"> - {{ departmentinnername }} </h6> -->
+                    <!-- <a class="defult-bt hero-slider-btn m-0" href="#/client/Fatawas">عرض الكل<span
+              class="fa fa-chevron-circle-left ms-4"></span></a> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- single fatawi item start -->
+            <div
+                class="col-sm-auto col-12 mt-30"
+                *ngIf="_router.url.indexOf('/client/FatawaDescription')"
+            >
+                <div class="fatawi-filter h-100">
+                    <div class="fatawi-filter-inner h-100 p-3">
+                        <ul class="">
+                            <li class="activewhite">
+                                {{ 'Departments' | translate }}
+                            </li>
+                            <li
+                                *ngFor="
+                                    let department of selectedDepartments;
+                                    let serialNo = index
+                                "
+                            >
+                                <a (click)="gotoDepartment(department.id)">{{
+                                    department.nodeName
+                                }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- single fatawi item end -->
+            <!-- single fatawi item start -->
+            <div class="col mt-30">
+                <div class="container g-0">
+                    <div class="fatwa-container row">
+                        <div
+                            class="col-md-4"
+                            *ngFor="let fatawa of dataSource.data"
+                        >
+                            <div class="fatwa-box">
+                                <h6>
+                                    <a
+                                        style="color: black"
+                                        [routerLink]="
+                                            '/client/FatawaDescription/' +
+                                            fatawa.id
+                                        "
+                                    >
+                                        {{ fatawa.name }}</a
+                                    >
+                                </h6>
+                                <p class="">{{ fatawa.fatawaQuestion }}</p>
+                                <b>
+                                    <i
+                                        class="fa fa-calendar me-2 text-black-50"
+                                    ></i>
+                                    {{ 'FatwaNo' | translate }} :
+                                    {{ fatawa.id }}
+                                    |
+                                    {{
+                                        fatawa.updatedDate | date: 'dd-MM-yyyy'
+                                    }}
+                                    |
+                                    {{ fatawa.fatawaDepartmentName }}
+                                </b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 fatwa-box-more">
+                                <a href="#">عرض المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

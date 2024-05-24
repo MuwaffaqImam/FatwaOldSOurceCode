@@ -1,0 +1,70 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div class="p-10" fxFlex.gt-sm="70" fxFlex.gt-xs="70" fxFlex="100">
+                <app-user-edit-control
+                    (notify)="addControl($event)"
+                    (keyup.enter)="applyFilter($event.target.value)"
+                    SearchPlaceHolder="{{ 'Search' | translate }}"
+                >
+                </app-user-edit-control>
+            </div>
+            <div class="p-10" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+                <mat-form-field>
+                    <mat-label>{{ 'Departments' | translate }}</mat-label>
+                    <input
+                        type="text"
+                        #searchInputDepartment
+                        matInput
+                        [matAutocomplete]="autoFilter"
+                        (keyup)="searchNodeName($event.target.value)"
+                    />
+
+                    <button
+                        mat-button
+                        matSuffix
+                        mat-icon-button
+                        *ngIf="searchInputDepartment.value"
+                        title="{{ 'ClearText' | translate }}"
+                        (click)="clearSearch()"
+                    >
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-icon matSuffix
+                        ><span class="material-icons">
+                            expand_more
+                        </span></mat-icon
+                    >
+                    <mat-autocomplete
+                        #autoFilter="matAutocomplete"
+                        [displayWith]="getFatawaFiltered.bind(this)"
+                    >
+                        <mat-option
+                            *ngFor="let departmentSelect of selectedDepartments"
+                            [value]="departmentSelect.id"
+                        >
+                            {{ departmentSelect.nodeName }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <app-data-grid-view
+            [gridDataSource]="dataSource"
+            [isShowMainActionControls]="false"
+            [displayedColumns]="[
+                'id',
+                'fatwaId',
+                'name',
+                'fatawaDepartmentName',
+            ]"
+            (onEditRow)="onActionRowGrid($event)"
+            (onDeleteRow)="onActionRowGrid($event)"
+            (onPagination)="onActionRowGrid($event)"
+            [lengthData]="length"
+            [PaginatorIndex]="paginationIndex"
+        >
+        </app-data-grid-view>
+    </mat-card-content>
+</mat-card>

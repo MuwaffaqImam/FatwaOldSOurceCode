@@ -1,0 +1,122 @@
+<div fxLayout="row" fxLayoutAlign="center start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+        <form novalidate [formGroup]="frmAddNew" (ngSubmit)="OnSubmit()">
+            <mat-card class="mat-card-top">
+                <mat-sidenav-container>
+                    <mat-toolbar
+                        class="bg-success no-shadow chat-right-panel"
+                        color="warn"
+                    >
+                        <div
+                            fxLayout="row"
+                            fxFlex="100"
+                            fxLayoutAlign="center center"
+                        >
+                            <div fxFlex>
+                                <div class="font-14">
+                                    {{ 'Chatting' | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </mat-toolbar>
+                    <mat-card-content #chatBox class="chat-middle-box">
+                        <div *ngIf="messages.length === 0">
+                            <p>{{ 'StartingChatting' | translate }}</p>
+                        </div>
+                        <div *ngFor="let message of messages">
+                            <div *ngIf="message.senderId == receiverId">
+                                <div class="chat-list odd">
+                                    <div class="chat-message">
+                                        <div class="received_withd_msg">
+                                            <span class="time_date">
+                                                {{
+                                                    message.createDate
+                                                        | date: 'shortTime'
+                                                }}
+                                            </span>
+                                            <p>{{ message.messageText }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="message.senderId != receiverId">
+                                <div class="chat-list even">
+                                    <div class="chat-message">
+                                        <div class="sent_msg">
+                                            <p>{{ message.messageText }}</p>
+                                        </div>
+                                        <span class="chat-date">{{
+                                            message.createDate | date
+                                        }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+
+                    <mat-card-actions class="chat-footer">
+                        <div fxLayout="row" layout-align="start center">
+                            <mat-form-field class="mr-1 ml-1" fxFlex>
+                                <input
+                                    matInput
+                                    type="text"
+                                    placeholder="Send message"
+                                    formControlName="MessageText"
+                                    autocomplete="off"
+                                />
+                            </mat-form-field>
+                            <button
+                                mat-fab
+                                color="warn"
+                                [disabled]="!frmAddNew.valid"
+                            >
+                                <mat-icon>send</mat-icon>
+                            </button>
+                        </div>
+                        <div fxLayout="row" layout-align="start center">
+                            <div
+                                class="p-10"
+                                fxFlex.gt-sm="15"
+                                fxFlex.gt-xs="15"
+                                fxFlex="100"
+                            >
+                                <mat-card-actions>
+                                    <button
+                                        mat-raised-button
+                                        [mat-dialog-close]="false"
+                                        color="warn"
+                                    >
+                                        <mat-icon>close</mat-icon>
+                                        {{ 'Close' | translate }}
+                                    </button>
+                                </mat-card-actions>
+                            </div>
+                            <div
+                                *ngIf="
+                                    currentUserType == 'SuperAdmin' ||
+                                    currentUserType == 'Admin'
+                                "
+                                class="p-10"
+                                fxFlex.gt-sm="15"
+                                fxFlex.gt-xs="15"
+                                fxFlex="100"
+                            >
+                                <mat-card-actions>
+                                    <button
+                                        type="button"
+                                        mat-raised-button
+                                        color="primary"
+                                        (click)="OnPublish()"
+                                    >
+                                        <mat-icon>publish</mat-icon>
+                                        {{ 'Approve' | translate }}
+                                    </button>
+                                </mat-card-actions>
+                            </div>
+                        </div>
+                    </mat-card-actions>
+                </mat-sidenav-container>
+            </mat-card>
+        </form>
+    </div>
+</div>

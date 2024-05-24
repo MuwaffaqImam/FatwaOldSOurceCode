@@ -1,0 +1,293 @@
+<section class="inner-area section-padding--ptb_120 pb-100 pbsm-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="">
+                    <h2 class="fw-bold pb-3">{{ fatwa?.name }}</h2>
+                    <b class="text-black-50">
+                        <i class="fa fa-calendar"></i>
+                        {{ fatwa?.updatedDate | date: 'fullDate':'ar-SA' }}</b
+                    >
+
+                    &nbsp; &nbsp; &nbsp; المفتي {{ fatwa?.muftiName }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-xs-12">
+                <div class="mt-10 p-3 question rounded-3">
+                    <b class="fs-5 text-primary">السؤال</b>
+                    <p class="text-bold">{{ fatwa?.fatawaQuestion }}</p>
+                </div>
+                <div class="mt-10 p-3 rounded-3">
+                    <b class="fs-5 text-primary">الإجابة</b>
+                    <div [innerHTML]="fatwa?.description"></div>
+                </div>
+                <hr />
+                <h4 class="fw-bold pb-3" style="color: #b94749 !important">
+                    فتاوى ذات صلة
+                </h4>
+                <div
+                    class="blog-post__content"
+                    *ngFor="let fatawa of dataSource.data"
+                >
+                    <div
+                        class="d-flex flex-column justify-content-around w-100"
+                    >
+                        <h4 class="blog-title">
+                            <a
+                                [routerLink]="
+                                    '/client/FatawaDescription/' + fatawa.id
+                                "
+                                tabindex="0"
+                                >{{ fatawa.name }}
+                            </a>
+                        </h4>
+                        <p class="blog-desc">{{ fatawa.fatawaQuestion }}</p>
+                        <div class="blog-footer d-flex justify-content-between">
+                            <i class="me-2 text-black-50"></i>
+                            {{ 'FatwaNo' | translate }} :
+                            {{ fatawa.id }}
+                            |
+                            {{ fatawa.fatawaDepartmentName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-xs-12">
+                <h4 class="fw-bold pb-3" style="color: #b94749 !important">
+                    الاكثر قراءة
+                </h4>
+                <div class="blog-style-2">
+                    <div
+                        class="blog-post__content"
+                        *ngFor="let fatawa of dataSource.data"
+                    >
+                        <div
+                            class="d-flex flex-column justify-content-around w-100"
+                        >
+                            <h4 class="blog-title">
+                                <a
+                                    [routerLink]="
+                                        '/client/FatawaDescription/' + fatawa.id
+                                    "
+                                    tabindex="0"
+                                    >{{ fatawa.name }}
+                                </a>
+                            </h4>
+                            <p class="blog-desc">{{ fatawa.fatawaQuestion }}</p>
+                            <div
+                                class="blog-footer d-flex justify-content-between"
+                            >
+                                <i class="me-2 text-black-50"></i>
+                                {{ 'FatwaNo' | translate }} :
+                                {{ fatawa.id }}
+                                |
+                                {{ fatawa.fatawaDepartmentName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h3>{{ 'FatwaDescription' | translate }}</h3>
+        </mat-card-title>
+        <span class="example-spacer"></span>
+        <div>
+            <button
+                class="zoom-buttons"
+                mat-button
+                type="button"
+                (click)="increase()"
+            >
+                <mat-icon>zoom_in</mat-icon>
+            </button>
+            <button
+                class="zoom-buttons"
+                mat-button
+                type="button"
+                (click)="decrease()"
+            >
+                <mat-icon>zoom_out</mat-icon>
+            </button>
+            <button
+                class="zoom-buttons"
+                mat-button
+                type="button"
+                (click)="reset()"
+            >
+                <mat-icon>youtube_searched_for</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div fxLayout="row wrap">
+            <div class="p-12" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+                <div class="header-center">
+                    {{ 'PublishDate' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.updatedDate | date: 'dd - MM - yyyy' }}
+                </p>
+            </div>
+
+            <div class="p-12" fxFlex.gt-sm="60" fxFlex.gt-xs="60" fxFlex="100">
+                <div class="header-center">
+                    {{ 'FatwaTitle' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.name }}
+                </p>
+            </div>
+            <div class="p-12" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+                <div class="header-center">
+                    {{ 'visitors' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.visitors }}
+                </p>
+            </div>
+            <div class="p-12" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+                <div class="header-center">
+                    {{ 'Mathhabs' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.mathhabName }}
+                </p>
+            </div>
+
+            <div class="p-12" fxFlex.gt-sm="60" fxFlex.gt-xs="60" fxFlex="100">
+                <div class="header-center">
+                    {{ 'Mufti' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.muftiName }}
+                </p>
+            </div>
+            <div class="p-12" fxFlex.gt-sm="20" fxFlex.gt-xs="20" fxFlex="100">
+                <div class="header-center">
+                    {{ 'FatwaNo' | translate }}
+                </div>
+                <p
+                    class="content-center"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.id }}
+                </p>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+            >
+                <div class="header">
+                    {{ 'fatawaQuestion' | translate }}
+                </div>
+                <p
+                    class="content"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                >
+                    {{ fatwa?.fatawaQuestion }}
+                </p>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+            >
+                <div class="header">
+                    {{ 'FatwaResult' | translate }}
+                </div>
+
+                <div
+                    [innerHTML]="fatwa?.description"
+                    class="content"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                ></div>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+                *ngIf="false"
+            >
+                <div class="header">
+                    {{ 'Tags' | translate }}
+                </div>
+                <p
+                    class="content"
+                    [style.fontSize.px]="fontSize"
+                    [style.lineHeight.px]="lineHeight"
+                    *ngFor="let tag of fatwa?.tags"
+                >
+                    {{ tag?.name }}
+                </p>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+            >
+                <div class="header">
+                    {{ 'Languages' | translate }}
+                </div>
+                <div class="content" *ngFor="let lang of fatwalanguages">
+                    <img
+                        [src]="getLanguageImageResource(lang)"
+                        class="flag"
+                        (click)="onLanguageChange(lang.id)"
+                    />
+                </div>
+            </div>
+            <div
+                class="p-12"
+                fxFlex.gt-sm="100"
+                fxFlex.gt-xs="100"
+                fxFlex="100"
+            >
+                <div class="header">
+                    {{ 'RelatedFatawas' | translate }}
+                </div>
+                <div class="content" *ngFor="let fatawa of fatwaRelations">
+                    <a
+                        class="fatawa-more"
+                        [routerLink]="'/client/FatawaDescription/' + fatawa.id"
+                        >{{ fatawa.name }}</a
+                    >
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card> -->

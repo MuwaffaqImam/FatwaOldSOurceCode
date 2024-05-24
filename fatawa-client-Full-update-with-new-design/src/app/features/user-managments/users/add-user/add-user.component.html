@@ -1,0 +1,259 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <form [formGroup]="registerForm">
+                    <div class="text-info">
+                        <!-- <img alt="homepage" src="assets/images/logo-icon.png" /> -->
+                        <h2 class="m-t-0">{{ 'AddUser' | translate }}</h2>
+                    </div>
+                    <div fxLayout="row wrap">
+                        <!-- col full-->
+                        <!-- <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <mat-form-field style="width: 100%">
+                <input matInput placeholder="{{ 'userName' | translate }}" type="text" [formControl]="
+                                        registerForm.controls['UserName']
+                                    " />
+              </mat-form-field>
+              <small *ngIf="
+                                    registerForm.controls['UserName'].hasError(
+                                        'required'
+                                    ) &&
+                                    registerForm.controls['UserName'].touched
+                                " class="text-danger support-text">{{ 'MustIncludeUserName' | translate }}</small>
+            </div> -->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    matInput
+                                    placeholder="{{ 'FullName' | translate }}"
+                                    type="text"
+                                    [formControl]="
+                                        registerForm.controls['Fullname']
+                                    "
+                                />
+                            </mat-form-field>
+                            <small
+                                *ngIf="
+                                    registerForm.controls['Fullname'].hasError(
+                                        'required'
+                                    ) &&
+                                    registerForm.controls['Fullname'].touched
+                                "
+                                class="text-danger support-text"
+                                >{{ 'MustIncludeFullName' | translate }}</small
+                            >
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    matInput
+                                    placeholder="{{
+                                        'EmailAddress' | translate
+                                    }}"
+                                    type="email"
+                                    [formControl]="
+                                        registerForm.controls['Email']
+                                    "
+                                />
+                            </mat-form-field>
+                            <small
+                                *ngIf="
+                                    registerForm.controls['Email'].hasError(
+                                        'required'
+                                    ) && registerForm.controls['Email'].touched
+                                "
+                                class="text-danger support-text"
+                                >{{
+                                    'MustIncludeValidEmailAddress' | translate
+                                }}</small
+                            >
+                            <small
+                                *ngIf="
+                                    registerForm.controls['Email'].errors
+                                        ?.email &&
+                                    registerForm.controls['Email'].touched
+                                "
+                                class="text-danger support-text"
+                                >{{
+                                    'MustIncludeValidEmailAddress' | translate
+                                }}</small
+                            >
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    matInput
+                                    placeholder="{{
+                                        'PhoneNumber' | translate
+                                    }}"
+                                    type="text"
+                                    [formControl]="
+                                        registerForm.controls['PhoneNumber']
+                                    "
+                                />
+                            </mat-form-field>
+                            <small
+                                *ngIf="
+                                    registerForm.controls[
+                                        'PhoneNumber'
+                                    ].hasError('required') &&
+                                    registerForm.controls['PhoneNumber'].touched
+                                "
+                                class="text-danger support-text"
+                                >{{ 'MustIncludePhoneNo' | translate }}</small
+                            >
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    matInput
+                                    [type]="
+                                        isHidePassword ? 'password' : 'text'
+                                    "
+                                    placeholder="{{ 'Password' | translate }}"
+                                    [pattern]="passwordPattern"
+                                    [formControl]="
+                                        registerForm.controls['PasswordHash']
+                                    "
+                                />
+                                <mat-icon
+                                    matSuffix
+                                    (click)="isHidePassword = !isHidePassword"
+                                    class="link-hand"
+                                >
+                                    {{
+                                        isHidePassword
+                                            ? 'visibility_off'
+                                            : 'visibility'
+                                    }}</mat-icon
+                                >
+                            </mat-form-field>
+                            <small
+                                *ngIf="
+                                    registerForm.controls[
+                                        'PasswordHash'
+                                    ].hasError('required') &&
+                                    registerForm.controls['PasswordHash']
+                                        .touched
+                                "
+                                class="text-danger support-text"
+                                >{{ 'MustIncludePassword' | translate }}</small
+                            >
+                            <small
+                                *ngIf="
+                                    registerForm.controls[
+                                        'PasswordHash'
+                                    ].hasError('pattern') &&
+                                    registerForm.controls['PasswordHash']
+                                        .touched
+                                "
+                                class="text-danger support-text"
+                                >{{
+                                    'PasswordConsistsNumbersAndLetters'
+                                        | translate
+                                }}</small
+                            >
+                        </div>
+                        <!-- col full-->
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    matInput
+                                    placeholder="{{
+                                        'ConfirmPassword' | translate
+                                    }}"
+                                    [formControl]="
+                                        registerForm.controls['ConfirmPassword']
+                                    "
+                                    [type]="
+                                        isHidePasswordConfirm
+                                            ? 'password'
+                                            : 'text'
+                                    "
+                                />
+                                <mat-icon
+                                    matSuffix
+                                    (click)="
+                                        isHidePasswordConfirm = !isHidePasswordConfirm
+                                    "
+                                    class="link-hand"
+                                >
+                                    {{
+                                        isHidePasswordConfirm
+                                            ? 'visibility_off'
+                                            : 'visibility'
+                                    }}</mat-icon
+                                >
+                            </mat-form-field>
+                            <small
+                                *ngIf="
+                                    registerForm.controls[
+                                        'ConfirmPassword'
+                                    ].hasError('required') &&
+                                    registerForm.controls['ConfirmPassword']
+                                        .touched
+                                "
+                                class="text-danger support-text"
+                                >{{
+                                    'MustIncludeConfirmPassword' | translate
+                                }}</small
+                            >
+                            <small
+                                *ngIf="
+                                    registerForm.controls['ConfirmPassword']
+                                        .value !==
+                                    registerForm.controls['PasswordHash'].value
+                                "
+                                class="text-danger support-text"
+                                >{{ 'PasswordsDonotMatch' | translate }}</small
+                            >
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="{{ 'Languages' | translate }}"
+                                    formControlName="LanguageId"
+                                >
+                                    <mat-option
+                                        *ngFor="let language of languages"
+                                        [value]="language.id"
+                                    >
+                                        {{ language.languageDefaultDisply }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                class="btn-block btn-lg m-t-20 m-b-20"
+                                type="submit"
+                                (click)="register()"
+                                [disabled]="
+                                    !registerForm.valid ||
+                                    registerForm.controls['ConfirmPassword']
+                                        .value !==
+                                        registerForm.controls['PasswordHash']
+                                            .value
+                                "
+                            >
+                                {{ 'CreateAdminAccount' | translate }}
+                            </button>
+                        </div>
+                        <!-- <div class="text-center" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+              <span>{{ 'AlreadyHaveAccount' | translate }}
+                <a (click)="loginRedirect()" class="link text-info link-hand">
+                  {{ 'Login' | translate }}</a>
+              </span>
+            </div> -->
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

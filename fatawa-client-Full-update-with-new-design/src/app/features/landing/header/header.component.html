@@ -1,0 +1,100 @@
+<!-- ============================================================== -->
+<!-- Notification - style you can find in header.scss -->
+<!-- ============================================================== -->
+<mat-form-field>
+    <mat-select
+        [(value)]="selectLangId"
+        (selectionChange)="updateSelectedLanguage($event.value)"
+    >
+        <mat-option *ngFor="let language of languages" [value]="language.id">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <img [src]="getLanguageImageResource(language)" class="flag" />
+                <span>{{ language.languageDefaultDisply }}</span>
+            </div>
+        </mat-option>
+        <mat-select-trigger *ngIf="languages.length > 0">
+            <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxLayoutGap="10px"
+                style="padding: 0 16px"
+            >
+                <img
+                    [src]="getLanguageImageResource(languageSelected)"
+                    class="flag"
+                />
+                <span>{{ languageSelected?.languageDefaultDisply }}</span>
+            </div>
+        </mat-select-trigger>
+    </mat-select>
+</mat-form-field>
+
+<button [matMenuTriggerFor]="notification" mat-icon-button class="m-r-10">
+    <mat-icon
+        matBadge="{{ (notificationsList | async)?.length }}"
+        matBadgeColor="warn"
+        matBadgePosition="before"
+    >
+        notifications</mat-icon
+    >
+</button>
+<mat-menu #notification="matMenu" class="mymegamenu">
+    <div class="mailbox">
+        <ul>
+            <li>
+                <div class="drop-title">
+                    {{ 'YouHave' | translate }}
+                    {{ (notificationsList | async)?.length }}
+                    {{ 'NewNotifications' | translate }}
+                </div>
+            </li>
+            <li>
+                <div class="message-center">
+                    <perfect-scrollbar [config]="config">
+                        <!-- Message -->
+                        <a
+                            style="cursor: pointer"
+                            *ngFor="
+                                let notification of notificationsList | async
+                            "
+                            (click)="redirectToSourcePage(notification)"
+                        >
+                            <div
+                                class="round {{ notification.SenderId }}"
+                            ></div>
+                            <div class="mail-content">
+                                <h5>
+                                    {{ notification.messageText | translate }}
+                                </h5>
+                            </div>
+                        </a>
+                    </perfect-scrollbar>
+                </div>
+            </li>
+        </ul>
+    </div>
+</mat-menu>
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
+    <img src="assets/images/users/1.jpg" alt="user" class="profile-pic" />
+</button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+    <button mat-menu-item>
+        {{ fullname }}
+    </button>
+    <button mat-menu-item>
+        <mat-icon>settings</mat-icon> {{ 'Settings' | translate }}
+    </button>
+    <button mat-menu-item>
+        <mat-icon>account_box</mat-icon> {{ 'Profile' | translate }}
+    </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        {{ 'DisableNotifications' | translate }}
+    </button>
+    <button (click)="logout()" mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon> {{ 'SignOut' | translate }}
+    </button>
+</mat-menu>

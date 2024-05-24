@@ -1,0 +1,169 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+                <form
+                    novalidate
+                    [formGroup]="frmAddNew"
+                    (ngSubmit)="OnSubmit()"
+                >
+                    <div fxLayout="row wrap">
+                        <div
+                            class="p-12"
+                            fxFlex.gt-sm="100"
+                            fxFlex.gt-xs="100"
+                            fxFlex="100"
+                        >
+                            <ng-template>
+                                <mat-card-actions>
+                                    <mat-form-field style="width: 100%">
+                                        <input
+                                            matInput
+                                            placeholder="Id"
+                                            formControlName="Id"
+                                            type="text"
+                                        />
+                                    </mat-form-field>
+                                </mat-card-actions>
+                            </ng-template>
+                        </div>
+
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                            <mat-card-actions>
+                                <mat-form-field style="width: 100%">
+                                    <input
+                                        matInput
+                                        placeholder="{{
+                                            'languageCode' | translate
+                                        }}"
+                                        formControlName="LanguageCode"
+                                        type="text"
+                                        autocomplete="off"
+                                    />
+                                </mat-form-field>
+                            </mat-card-actions>
+                        </div>
+
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                            <mat-card-actions>
+                                <mat-form-field style="width: 100%">
+                                    <input
+                                        matInput
+                                        placeholder="{{
+                                            'languageDefaultDisply' | translate
+                                        }}"
+                                        formControlName="LanguageDefaultDisply"
+                                        type="text"
+                                        autocomplete="off"
+                                    />
+                                </mat-form-field>
+                            </mat-card-actions>
+                        </div>
+
+                        <div
+                            class="p-12"
+                            fxFlex.gt-sm="100"
+                            fxFlex.gt-xs="100"
+                            fxFlex="100"
+                        >
+                            <mat-card-actions>
+                                <mat-radio-group
+                                    formControlName="LanguageDirection"
+                                >
+                                    <mat-radio-button value="RTL">{{
+                                        'RTL' | translate
+                                    }}</mat-radio-button>
+                                    <mat-radio-button value="LTR">{{
+                                        'LTR' | translate
+                                    }}</mat-radio-button>
+                                </mat-radio-group>
+                            </mat-card-actions>
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                            <img
+                                [src]="imageBase64 | async"
+                                alt="{{ 'FatawaDefaultImage' | translate }}"
+                                width="150"
+                                height="200"
+                                class="inline-block"
+                            />
+                        </div>
+                        <div fxFlex.gt-sm="50" fxFlex="100" class="p-10">
+                            <app-file-upload
+                                class="inline-block"
+                                [fileConfig]="fileConfig"
+                                [fileListFormControl]="fileListFormControl"
+                                [form]="formFlagImage"
+                                [formConfig]="formConfig"
+                                title="{{ 'DocumentUpload' | translate }}"
+                                [validationMessageList]="validationMessageList"
+                                (emitFileSelect)="onFileSelect($event)"
+                                (emitSubmit)="uploadFlag()"
+                            ></app-file-upload>
+                        </div>
+                        <div
+                            class="p-10"
+                            fxFlex.gt-sm="15"
+                            fxFlex.gt-xs="15"
+                            fxFlex="100"
+                        >
+                            <mat-card-actions>
+                                <button
+                                    mat-raised-button
+                                    [mat-dialog-close]="false"
+                                    color="warn"
+                                >
+                                    <mat-icon>close</mat-icon>
+                                    {{ 'Close' | translate }}
+                                </button>
+                            </mat-card-actions>
+                        </div>
+
+                        <div
+                            class="p-10"
+                            fxFlex.gt-sm="15"
+                            fxFlex.gt-xs="15"
+                            fxFlex="100"
+                            [hidden]="frmAddNew.controls['Id'].value != 0"
+                        >
+                            <mat-card-actions>
+                                <button
+                                    mat-raised-button
+                                    type="submit"
+                                    color="primary"
+                                    [disabled]="
+                                        !frmAddNew.valid || isInProgress
+                                    "
+                                >
+                                    <mat-icon>add</mat-icon>
+                                    {{ 'Add' | translate }}
+                                </button>
+                            </mat-card-actions>
+                        </div>
+                        <div
+                            class="p-10"
+                            fxFlex.gt-sm="15"
+                            fxFlex.gt-xs="15"
+                            fxFlex="100"
+                            [hidden]="frmAddNew.controls['Id'].value == 0"
+                        >
+                            <mat-card-actions>
+                                <button
+                                    mat-raised-button
+                                    type="submit"
+                                    color="primary"
+                                    [disabled]="
+                                        !frmAddNew.valid || isInProgress
+                                    "
+                                >
+                                    <mat-icon>save</mat-icon>
+                                    {{ 'Save' | translate }}
+                                </button>
+                            </mat-card-actions>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

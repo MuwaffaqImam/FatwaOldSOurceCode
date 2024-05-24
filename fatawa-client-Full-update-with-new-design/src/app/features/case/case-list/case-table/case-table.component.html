@@ -1,0 +1,80 @@
+<div class="table-container">
+    <mat-spinner class="loader" *ngIf="!tableData?.results"></mat-spinner>
+    <div *ngIf="displayedColumns">
+        <div class="loader" *ngIf="isLoadingResults">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div [ngStyle]="{ display: showGrid() }">
+            <table
+                #table
+                mat-table
+                appMatTableResponsive
+                [dataSource]="tableData?.results"
+                *ngIf="columnIdList.length"
+            >
+                <tr mat-header-row *matHeaderRowDef="columnIdList"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnIdList"></tr>
+                <ng-container
+                    *ngFor="
+                        let col of displayedColumns;
+                        trackBy: trackByColumnId
+                    "
+                    [matColumnDef]="col.columnId"
+                >
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{ col.columnName }}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row[col.columnId] }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="dob">
+                    <th mat-header-cell *matHeaderCellDef>Date of Birth</th>
+                    <td mat-cell *matCellDef="let row">
+                        {{ row.dob | date: 'MM/dd/yy' }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let row">
+                        <ng-container *ngIf="getStatus(row); else completed">
+                            <div class="button-row">
+                                <button
+                                    class="hold-button"
+                                    mat-button
+                                    attr.aria-label="Hold"
+                                    (click)="makeDecision(row.id, 'hold')"
+                                >
+                                    Hold
+                                </button>
+                                <button
+                                    class="release-button"
+                                    mat-button
+                                    attr.aria-label="Release"
+                                    (click)="makeDecision(row.id, 'release')"
+                                >
+                                    Release
+                                </button>
+                            </div>
+                        </ng-container>
+                        <ng-template #completed> Completed </ng-template>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="decision">
+                    <th mat-header-cell *matHeaderCellDef>Decision</th>
+                    <td mat-cell *matCellDef="let row">
+                        <ng-container *ngIf="getDecision(row); else pending">
+                            <div class="button-row">
+                                {{ row.decision | titlecase }}
+                            </div>
+                        </ng-container>
+                        <ng-template #pending> Pending </ng-template>
+                    </td>
+                </ng-container>
+            </table>
+        </div>
+        <div *ngIf="!isLoadingResults && !tableData?.results.length">
+            {{ 'NoDataToDisplay' | translate }}
+        </div>
+    </div>
+</div>

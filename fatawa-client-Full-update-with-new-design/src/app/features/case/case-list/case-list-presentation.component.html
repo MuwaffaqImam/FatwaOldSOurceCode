@@ -1,0 +1,9 @@
+<mat-spinner class="loader" *ngIf="!caseList?.results"></mat-spinner>
+<ng-container *ngIf="caseList">
+    <app-case-table
+        [columnIdList]="columnIdList"
+        [displayedColumns]="displayedColumns"
+        [isLoadingResults]="isLoadingResults"
+        [tableData]="caseList"
+    ></app-case-table>
+</ng-container>

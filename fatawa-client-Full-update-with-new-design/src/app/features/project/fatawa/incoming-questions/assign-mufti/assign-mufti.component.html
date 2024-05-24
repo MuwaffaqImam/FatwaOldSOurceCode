@@ -1,0 +1,67 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+                <div fxLayout="row wrap">
+                    <div
+                        class="p-12"
+                        fxFlex.gt-sm="100"
+                        fxFlex.gt-xs="100"
+                        fxFlex="100"
+                    >
+                        <mat-card-actions>
+                            <mat-form-field>
+                                <mat-select
+                                    [(ngModel)]="mufitUserId"
+                                    placeholder="{{ 'Mufti' | translate }}"
+                                >
+                                    <mat-option
+                                        *ngFor="let mufti of muftiList"
+                                        [value]="mufti.userId"
+                                    >
+                                        {{ mufti.fullName | translate }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-card-actions>
+                    </div>
+                    <div
+                        class="p-10"
+                        fxFlex.gt-sm="15"
+                        fxFlex.gt-xs="15"
+                        fxFlex="100"
+                    >
+                        <mat-card-actions>
+                            <button
+                                mat-raised-button
+                                [mat-dialog-close]="false"
+                                color="warn"
+                            >
+                                <mat-icon>close</mat-icon>
+                                {{ 'Close' | translate }}
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                    <div
+                        class="p-10"
+                        fxFlex.gt-sm="15"
+                        fxFlex.gt-xs="15"
+                        fxFlex="100"
+                    >
+                        <mat-card-actions>
+                            <button
+                                mat-raised-button
+                                type="submit"
+                                color="primary"
+                                (click)="OnSubmit(mufitUserId)"
+                            >
+                                <mat-icon>compare_arrows</mat-icon>
+                                {{ 'ToMufti' | translate }}
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

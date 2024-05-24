@@ -1,0 +1,14 @@
+<div class="form-field" [formGroup]="group">
+    <mat-form-field class="form-input">
+        <mat-label>{{ config.label }}</mat-label>
+        <input
+            [type]="config.fieldConfig.inputType"
+            matInput
+            [formControlName]="config.name"
+            [placeholder]="config.placeholder"
+        />
+        <mat-error *ngIf="formControl.errors">
+            {{ formControl.errors | formError }}
+        </mat-error>
+    </mat-form-field>
+</div>

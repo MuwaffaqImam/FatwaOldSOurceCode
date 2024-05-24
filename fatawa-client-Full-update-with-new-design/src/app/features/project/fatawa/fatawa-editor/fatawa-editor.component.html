@@ -1,0 +1,421 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title *ngIf="isAdd">{{
+                    'AddNew' | translate
+                }}</mat-card-title>
+                <mat-card-title *ngIf="isEdit">{{
+                    'Edit' | translate
+                }}</mat-card-title>
+                <mat-card-title *ngIf="isQuestionToFatwa">{{
+                    'QuestionToFatwa' | translate
+                }}</mat-card-title>
+                <form [formGroup]="editorForm" class="basic-form">
+                    <div fxLayout="row wrap">
+                        <div fxFlex.gt-md="100" fxFlex="100" *ngIf="isEdit">
+                            <mat-form-field>
+                                <mat-select
+                                    [(value)]="selectedLanguageId"
+                                    placeholder="{{ 'Languages' | translate }}"
+                                >
+                                    <mat-option
+                                        (click)="languageChanged(language)"
+                                        *ngFor="let language of languages"
+                                        [value]="language.id"
+                                    >
+                                        {{ language.languageDefaultDisply }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <label *ngIf="showOriginal" class="original-fatwa">{{
+                            originalFatwaName
+                        }}</label>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="{{ 'FatwaName' | translate }}"
+                                    formControlName="name"
+                                />
+                            </mat-form-field>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls['name'].hasError(
+                                        'required'
+                                    ) && editorForm.controls['name'].touched
+                                "
+                                class="text-danger font-14"
+                                >{{ 'FatwaNameRequired' | translate }}</mat-hint
+                            >
+                        </div>
+
+                        <div *ngIf="false" fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option
+                                        *ngFor="
+                                            let translator of translatorsFiltered
+                                        "
+                                        [value]="translator"
+                                    >
+                                        {{ translator }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <input
+                                    matInput
+                                    placeholder="Translator Name"
+                                    formControlName="translatorName"
+                                    [matAutocomplete]="auto"
+                                />
+                            </mat-form-field>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls[
+                                        'translatorName'
+                                    ].hasError('required') &&
+                                    editorForm.controls['translatorName']
+                                        .touched
+                                "
+                                class="text-danger font-14"
+                                >{{
+                                    'TranslatorNameRequired' | translate
+                                }}</mat-hint
+                            >
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="{{ 'Mufti' | translate }}"
+                                    formControlName="muftiId"
+                                >
+                                    <mat-option
+                                        *ngFor="let mufti of muftiList"
+                                        [value]="mufti.userId"
+                                    >
+                                        {{ mufti.fullName | translate }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button
+                                class="default-button"
+                                mat-raised-button
+                                color="basic"
+                                (click)="setDefaultSettings('muftiId')"
+                            >
+                                {{ 'Default' | translate }}
+                            </button>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls['muftiId'].hasError(
+                                        'required'
+                                    ) && editorForm.controls['muftiId'].touched
+                                "
+                                class="text-danger font-14"
+                                >{{ 'MuftiRequired' | translate }}</mat-hint
+                            >
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="{{ 'FatawaType' | translate }}"
+                                    formControlName="fatawaTypeId"
+                                >
+                                    <mat-option
+                                        *ngFor="let fatawaType of fatawaTypes"
+                                        [value]="fatawaType.id"
+                                    >
+                                        {{ fatawaType.name | translate }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button
+                                class="default-button"
+                                mat-raised-button
+                                color="basic"
+                                (click)="setDefaultSettings('fatawaTypeId')"
+                            >
+                                {{ 'Default' | translate }}
+                            </button>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls[
+                                        'fatawaTypeId'
+                                    ].hasError('required') &&
+                                    editorForm.controls['fatawaTypeId'].touched
+                                "
+                                class="text-danger font-14"
+                                >{{
+                                    'FatawaTypeRequired' | translate
+                                }}</mat-hint
+                            >
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="{{
+                                        'Departments' | translate
+                                    }}"
+                                    formControlName="fatawaDepartmentId"
+                                    (openedChange)="myInput.focus()"
+                                >
+                                    <mat-form-field style="width: 100%">
+                                        <input
+                                            class="myInput"
+                                            #myInput
+                                            matInput
+                                            focused="'true'"
+                                            (keyup)="
+                                                searchNodeName(
+                                                    $event.target.value
+                                                )
+                                            "
+                                            autocomplete="off"
+                                            placeholder="{{
+                                                'Search' | translate
+                                            }}"
+                                        />
+                                    </mat-form-field>
+                                    <mat-option
+                                        *ngFor="
+                                            let fatawaDepartmen of selectedDepartmens
+                                        "
+                                        [value]="fatawaDepartmen.id"
+                                    >
+                                        {{ fatawaDepartmen.nodeName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button
+                                class="default-button"
+                                mat-raised-button
+                                color="basic"
+                                (click)="
+                                    setDefaultSettings('fatawaDepartmentId')
+                                "
+                            >
+                                {{ 'Default' | translate }}
+                            </button>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls[
+                                        'fatawaDepartmentId'
+                                    ].hasError('required') &&
+                                    editorForm.controls['fatawaDepartmentId']
+                                        .touched
+                                "
+                                class="text-danger font-14"
+                                >{{
+                                    'FatwaDepartmentRequired' | translate
+                                }}</mat-hint
+                            >
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="{{ 'Mathhabs' | translate }}"
+                                    formControlName="fatawaMathhabId"
+                                >
+                                    <mat-option
+                                        *ngFor="let mathhab of mathhabs"
+                                        [value]="mathhab.id"
+                                    >
+                                        {{ mathhab.name | translate }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button
+                                class="default-button"
+                                mat-raised-button
+                                color="basic"
+                                (click)="setDefaultSettings('fatawaMathhabId')"
+                            >
+                                {{ 'Default' | translate }}
+                            </button>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls[
+                                        'fatawaMathhabId'
+                                    ].hasError('required') &&
+                                    editorForm.controls['fatawaMathhabId']
+                                        .touched
+                                "
+                                class="text-danger font-14"
+                                >{{ 'MathhabRequired' | translate }}</mat-hint
+                            >
+                        </div>
+                        <label *ngIf="showOriginal" class="original-fatwa">{{
+                            originalFatwaQuestion
+                        }}</label>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <textarea
+                                    matInput
+                                    placeholder="{{
+                                        'FatwaQuestion' | translate
+                                    }}"
+                                    formControlName="fatawaQuestion"
+                                    autocomplete="off"
+                                    required
+                                ></textarea>
+                            </mat-form-field>
+                            <mat-hint
+                                *ngIf="
+                                    editorForm.controls[
+                                        'fatawaQuestion'
+                                    ].hasError('required') &&
+                                    editorForm.controls['fatawaQuestion']
+                                        .touched
+                                "
+                                class="text-danger font-14"
+                                >{{ 'fatawaQuestion' | translate }}</mat-hint
+                            >
+                        </div>
+
+                        <div
+                            *ngIf="showOriginal"
+                            [innerHTML]="originalDescription"
+                            class="original-fatwa"
+                        ></div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <div fxFlex.gt-md="75" fxFlex="75">
+                                <!-- <mat-form-field>
+                  <textarea #inputTarget matInput placeholder="{{
+                                        'FatwaDescription' | translate
+                                    }}" formControlName="description" autocomplete="off" required></textarea>
+                </mat-form-field> -->
+                                <ckeditor
+                                    [editor]="Editor"
+                                    [config]="{
+                                        language: { ui: 'en', content: 'ar' }
+                                    }"
+                                    formControlName="description"
+                                ></ckeditor>
+                                <mat-hint
+                                    *ngIf="
+                                        editorForm.controls[
+                                            'description'
+                                        ].hasError('required') &&
+                                        editorForm.controls['description']
+                                            .touched
+                                    "
+                                    class="text-danger font-14"
+                                    >{{
+                                        'FatwaDescriptionRequired' | translate
+                                    }}</mat-hint
+                                >
+                            </div>
+                            <!-- <div fxFlex.gt-md="25" fxFlex="25">
+                <button class="default-button" mat-raised-button color="primary" (cbOnSuccess)="isCopied = true"  [ngxClipboard]="inputTarget">
+                  {{ 'CopyFatwa' | translate }}
+                </button>
+              </div> -->
+                        </div>
+
+                        <hr />
+                        <br />
+
+                        <mat-chip-list #chipList *ngIf="showOriginal">
+                            <mat-chip
+                                class="original-fatwa"
+                                *ngFor="let tag of originalTags"
+                            >
+                                {{ tag.name }}
+                            </mat-chip>
+                        </mat-chip-list>
+
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <div fxFlex.gt-md="75" fxFlex="75">
+                                <mat-form-field>
+                                    <mat-chip-list
+                                        #chipList
+                                        aria-label="Tag selection"
+                                    >
+                                        <mat-chip
+                                            *ngFor="let tag of tags"
+                                            [selectable]="selectable"
+                                            [removable]="removable"
+                                            (removed)="removeTag(tag)"
+                                        >
+                                            {{ tag.name }}
+                                            <mat-icon
+                                                matChipRemove
+                                                *ngIf="removable"
+                                                >cancel</mat-icon
+                                            >
+                                        </mat-chip>
+                                        <input
+                                            placeholder="{{
+                                                'Tags' | translate
+                                            }}"
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="
+                                                separatorKeysCodes
+                                            "
+                                            [matChipInputAddOnBlur]="addOnBlur"
+                                            (matChipInputTokenEnd)="
+                                                addTag($event)
+                                            "
+                                        />
+                                    </mat-chip-list>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-md="25" fxFlex="25">
+                                <button
+                                    class="default-button"
+                                    mat-raised-button
+                                    color="basic"
+                                    (click)="setDefaultSettings('tags')"
+                                >
+                                    {{ 'Default' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                        <hr />
+                        <br />
+                        <app-file-upload
+                            class="inline-block"
+                            [fileConfig]="fileConfig"
+                            [fileListFormControl]="fileListFormControl"
+                            [form]="formGroup"
+                            [formConfig]="formConfig"
+                            title="{{ 'DocumentUpload' | translate }}"
+                            [validationMessageList]="validationMessageList"
+                            (emitFileSelect)="onFileSelect($event)"
+                            (emitSubmit)="uploadDocument()"
+                        ></app-file-upload>
+                        <img
+                            [src]="imageBase64 | async"
+                            alt="{{ 'FatawaDefaultImage' | translate }}"
+                            class="inline-block img-responsive"
+                        />
+
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="!editorForm.valid || isInProgress"
+                                class="submit-btns"
+                                (click)="submitFatawa(false)"
+                            >
+                                {{ 'Save' | translate }}
+                            </button>
+
+                            <button
+                                *ngIf="isSuperAdminUser | async"
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="!editorForm.valid || isInProgress"
+                                class="submit-btns"
+                                (click)="submitFatawa(true)"
+                            >
+                                {{ 'SaveAndPublish' | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

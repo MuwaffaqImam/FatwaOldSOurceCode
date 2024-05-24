@@ -1,0 +1,27 @@
+<nav class="nav-container">
+    <img src="assets/img/logo.png" alt="TeamWork" />
+    <div class="settings-container">
+        <div class="menu-container">
+            <button
+                mat-icon-button
+                [matMenuTriggerFor]="beforeMenu"
+                matTooltip="Settings Menu"
+                matTooltipPosition="left"
+                aria-label="Settings Menu"
+            >
+                <mat-icon color="primary" fontSet="material-icons-outlined"
+                    >settings</mat-icon
+                >
+            </button>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button
+                    id="logout-button"
+                    mat-menu-item
+                    (click)="openDeleteDialog()"
+                >
+                    {{ 'Log Out' | uppercase }}
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</nav>

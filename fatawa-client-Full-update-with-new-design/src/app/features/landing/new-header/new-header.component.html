@@ -1,0 +1,238 @@
+<header class="header-area header-transparent">
+    <div class="main-header d-none d-lg-block">
+        <!-- main menu start -->
+        <div class="main-menu-wrapper sticky">
+            <div class="container">
+                <div class="row align-items-center py-3">
+                    <div class="col-lg-auto">
+                        <!-- logo area start -->
+                        <div class="brand-logo">
+                            <a href="index.html">
+                                <img
+                                    src="assets/img/logo/Logo.svg"
+                                    alt="brand logo"
+                                />
+                            </a>
+                        </div>
+                        <!-- logo area end -->
+                    </div>
+                    <div class="col-lg">
+                        <!-- logo area start -->
+                        <div class="search">
+                            <form class="widget-search-form">
+                                <input
+                                    placeholder="بحث"
+                                    type="text"
+                                    class="search-field"
+                                />
+                                <button type="submit" class="search-btn">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <!-- logo area end -->
+                    </div>
+                    <div class="col-lg-auto">
+                        <div class="main-menu-inner">
+                            <!-- main menu navbar start -->
+                            <nav class="main-menu">
+                                <ul>
+                                    <li class="active">
+                                        <a href="index.html">الرئيسية</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">الفتاوى</a>
+                                    </li>
+                                    <li><a href="#">استشارات</a></li>
+                                    <li>
+                                        <a href="#">مقالات</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">المكتبة</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">تواصل معنا</a>
+                                    </li>
+                                    <li class="focus">
+                                        <a
+                                            *ngIf="!userService.isTokenExist()"
+                                            [routerLink]="['/auth/login']"
+                                            >{{ 'Login' | translate }}</a
+                                        >
+                                        <a
+                                            *ngIf="userService.isTokenExist()"
+                                            (click)="logout()"
+                                            >{{ 'SignOut' | translate }}</a
+                                        >
+                                    </li>
+                                    <li class="lang">
+                                        <a href="#">
+                                            <i class="fa fa-globe"></i> العربية
+                                            <!--<i class="fa fa-chevron-down"></i> -->
+                                        </a>
+                                        <ul class="dropdown">
+                                            <li
+                                                *ngFor="
+                                                    let language of languages
+                                                "
+                                                [value]="language.id"
+                                            >
+                                                <a href="#">{{
+                                                    language.languageDefaultDisply
+                                                }}</a>
+                                            </li>
+                                        </ul>
+                                        <!-- <form [formGroup]="langForm">
+                      <mat-form-field>
+                        <mat-select formControlName="lang" (selectionChange)="updateSelectedLanguage($event.value)">
+                          <mat-option *ngFor="let language of languages" [value]="language.id">
+                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                              <img [src]="getLanguageImageResource(language)" [width]="10"  class="flag" />
+                              <span>{{ language.languageDefaultDisply }}</span>
+                            </div>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </form> -->
+                                        <!--  -->
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- main menu navbar end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main menu end -->
+    </div>
+    <!-- mobile header start -->
+    <!-- mobile header start -->
+    <div class="mobile-header d-lg-none d-md-block sticky">
+        <!--mobile header top start -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <div class="mobile-main-header">
+                        <div class="mobile-logo">
+                            <a href="index.html">
+                                <img
+                                    src="assets/img/logo/Logo.svg"
+                                    alt="Brand Logo"
+                                />
+                            </a>
+                        </div>
+                        <div class="mobile-menu-toggler">
+                            <button class="mobile-menu-btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- mobile header top start -->
+    </div>
+    <!-- mobile header end -->
+    <!-- mobile header end -->
+    <!-- offcanvas mobile menu start -->
+    <!-- off-canvas menu start -->
+    <aside class="off-canvas-wrapper">
+        <div class="off-canvas-overlay"></div>
+        <div class="off-canvas-inner-content">
+            <div class="btn-close-off-canvas">
+                <i class="fa fa-close"></i>
+            </div>
+            <div class="off-canvas-inner">
+                <!-- search box start -->
+                <div class="search-box-offcanvas">
+                    <form>
+                        <input type="text" placeholder="ابحث" />
+                        <button class="search-btn">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- search box end -->
+                <!-- mobile menu start -->
+                <div class="mobile-navigation">
+                    <!-- mobile menu navigation start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="active">
+                                <a href="index.html">الرئيسية</a>
+                            </li>
+                            <li>
+                                <a href="about.html">الفتاوى</a>
+                            </li>
+                            <li><a href="about.html">استشارات</a></li>
+                            <li>
+                                <a href="about.html">مقالات</a>
+                            </li>
+                            <li>
+                                <a href="about.html">المكتبة</a>
+                            </li>
+                            <li>
+                                <a href="about.html">تواصل معنا</a>
+                            </li>
+                            <li class="focus">
+                                <a href="about.html">طلب فتوى</a>
+                            </li>
+                            <li class="lang menu-item-has-children">
+                                <a href="#">
+                                    <i class="fa fa-globe"></i> العربية
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown">
+                                    <li><a href="about.html">العربية</a></li>
+                                    <li><a href="about.html">English</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- mobile menu navigation end -->
+                </div>
+                <!-- mobile menu end -->
+                <!-- offcanvas widget area start -->
+                <div class="offcanvas-widget-area">
+                    <div class="off-canvas-social-widget">
+                        <ul class="footer-social">
+                            <li>
+                                <a href="#" class=""
+                                    ><i class="fa-brands fa-facebook"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="#" class=""
+                                    ><i class="fa-brands fa-twitter"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="#" class=""
+                                    ><i class="fa-brands fa-linkedin"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="#" class=""
+                                    ><i class="fa-brands fa-instagram"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="#" class=""
+                                    ><i
+                                        class="fa-brands fa-facebook-messenger"
+                                    ></i
+                                ></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- offcanvas widget area end -->
+            </div>
+        </div>
+    </aside>
+    <!-- off-canvas menu end -->
+    <!-- offcanvas mobile menu end -->
+</header>

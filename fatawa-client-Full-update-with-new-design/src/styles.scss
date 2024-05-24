@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
+.confirm-dialog-container .mat-dialog-container {
+    border-radius: 0.25em 0.25em 0.4em 0.4em;
+    padding: 0px;
+}
+
+.confirm-dialog-container .content-container {
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    color: rgb(156, 157, 199);
+    display: flex;
+}
+
+.confirm-dialog-container #close-icon {
+    margin-left: auto;
+    order: 2;
+    font-weight: bolder;
+}
+
+.confirm-dialog-container #close-icon:hover {
+    cursor: pointer;
+}
+
+.confirm-dialog-container #form-submit-button {
+    height: 3em;
+    width: 15em;
+    background-color: rgba(233, 19, 19, 0.938);
+    color: white;
+    border-radius: 0em;
+}
+
+.confirm-dialog-container #cancel-button {
+    padding: 0.5em 0.5em;
+    height: 3em;
+    width: 15em;
+    background-color: rgb(109, 235, 109);
+    color: white;
+    border-radius: 0em;
+}
+
+.confirm-dialog-container span.content-span {
+    padding: 0.5em 0.5em;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+html,
+body {
+    min-height: 100%;
+}

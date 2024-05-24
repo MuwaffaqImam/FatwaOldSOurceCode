@@ -1,0 +1,21 @@
+<mat-card id="form-card">
+    <mat-card-header>
+        <h1 class="header">{{ formTitle | uppercase }}</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <ng-container
+                *ngFor="let field of formConfig.controls"
+                appDynamicField
+                [fieldConfig]="field"
+                [group]="form"
+            ></ng-container>
+            <app-save-cancel
+                [buttonConfig]="formConfig.submit"
+                [form]="form"
+                [shouldDisable]="!form.valid"
+                (emitSubmit)="submit()"
+            ></app-save-cancel>
+        </form>
+    </mat-card-content>
+</mat-card>

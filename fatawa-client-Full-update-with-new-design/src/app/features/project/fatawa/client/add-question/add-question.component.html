@@ -1,0 +1,40 @@
+<div id="slideout" [dir]="dir" [ngClass]="showQuestion ? 'active ' : ''">
+    <button mat-button class="slidout-button" (click)="toggle()">
+        {{ 'askQuestion' | translate }}
+    </button>
+    <div id="slideout_inner">
+        <mat-card>
+            <mat-card-content>
+                <form
+                    novalidate
+                    [formGroup]="frmAddNew"
+                    (ngSubmit)="OnSubmit()"
+                >
+                    <mat-form-field appearance="outline">
+                        <textarea
+                            matInput
+                            placeholder="{{ 'AddQuestion' | translate }}"
+                            formControlName="FatawaQuestion"
+                            autocomplete="off"
+                            matTextareaAutosize
+                            matAutosizeMinRows="6"
+                            class="textarea-question"
+                            required
+                        ></textarea>
+                    </mat-form-field>
+                    <mat-card-actions>
+                        <button
+                            mat-raised-button
+                            type="submit"
+                            class="add-question-botton"
+                            [disabled]="!frmAddNew.valid || isInProgress"
+                        >
+                            <mat-icon>add</mat-icon>
+                            {{ 'Add' | translate }}
+                        </button>
+                    </mat-card-actions>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

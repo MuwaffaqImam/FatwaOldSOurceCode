@@ -1,0 +1,122 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="column">
+            <input class="form-control" type="file" #fileInput />
+            <div class="p-10" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+                <button
+                    mat-raised-button
+                    type="button"
+                    color="primary"
+                    class="btn btn-primary"
+                    (click)="uploadFile()"
+                >
+                    {{ 'Upload' | translate }}
+                </button>
+                <div>
+                    <h4 class="alert-success">{{ message }}</h4>
+                </div>
+            </div>
+
+            <div class="p-10" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+                <form [formGroup]="editorForm" class="basic-form">
+                    <mat-form-field>
+                        <mat-select
+                            placeholder="{{ 'Mufti' | translate }}"
+                            formControlName="muftiId"
+                        >
+                            <mat-option
+                                *ngFor="let mufti of muftiList"
+                                [value]="mufti.userId"
+                            >
+                                {{ mufti.fullName | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select
+                            placeholder="{{ 'Departments' | translate }}"
+                            formControlName="fatawaDepartmentId"
+                            (openedChange)="myInput.focus()"
+                        >
+                            <mat-form-field style="width: 100%">
+                                <input
+                                    class="myInput"
+                                    #myInput
+                                    matInput
+                                    focused="'true'"
+                                    (keyup)="
+                                        searchNodeName($event.target.value)
+                                    "
+                                    autocomplete="off"
+                                    placeholder="{{ 'Search' | translate }}"
+                                />
+                            </mat-form-field>
+                            <mat-option
+                                *ngFor="
+                                    let fatawaDepartmen of selectedDepartments
+                                "
+                                [value]="fatawaDepartmen.id"
+                            >
+                                {{ fatawaDepartmen.nodeName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select
+                            placeholder="{{ 'Mathhabs' | translate }}"
+                            formControlName="fatawaMathhabId"
+                        >
+                            <mat-option
+                                *ngFor="let mathhab of mathhabs"
+                                [value]="mathhab.id"
+                            >
+                                {{ mathhab.name | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select
+                            placeholder="{{ 'FatawaType' | translate }}"
+                            formControlName="fatawaTypeId"
+                        >
+                            <mat-option
+                                *ngFor="let fatawaType of fatawaTypes"
+                                [value]="fatawaType.id"
+                            >
+                                {{ fatawaType.name | translate }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button
+                        mat-raised-button
+                        type="button"
+                        color="primary"
+                        [disabled]="!editorForm.valid"
+                        class="btn btn-primary"
+                        (click)="submitFatawa(false)"
+                    >
+                        {{ 'Save' | translate }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-content>
+        <app-data-grid-view
+            [gridDataSource]="dataSource"
+            [displayedColumns]="[
+                    'id',
+                    'fatwaId',
+                    'name',
+                ]"
+            [isShowMainActionControls]="false"
+            (onPagination)="onActionRowGrid($event)"
+            [lengthData]="length"
+            [PaginatorIndex]="paginationIndex"
+        >
+        </app-data-grid-view>
+    </mat-card-content>
+</mat-card>

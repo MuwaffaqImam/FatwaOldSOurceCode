@@ -1,0 +1,16 @@
+.scroll {
+    position: sticky;
+    bottom: 10px;
+    .scroll-wrapper {
+        text-align: end;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    button {
+        background-color: #e8a22a;
+    }
+    i {
+        font-size: 29px;
+        margin-top: -2px;
+    }
+}

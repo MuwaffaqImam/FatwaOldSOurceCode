@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <div fxLayout="row" fxLayoutWrap="wrap">
+            <div fxFlex.gt-sm="100" fxFlex.gt-xs="100">
+                <div fxLayout="row wrap">
+                    <div
+                        class="content-container"
+                        fxFlex.gt-sm="25"
+                        fxFlex.gt-xs="25"
+                        fxFlex="100"
+                    >
+                        <mat-card-actions>
+                            <mat-radio-group class="example-radio-group">
+                                <mat-radio-button
+                                    *ngFor="let role of roles"
+                                    [value]="role.id"
+                                    [checked]="role.id == currentRoleUser"
+                                    (change)="changeRole(role.id)"
+                                >
+                                    {{ role.name | translate }}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </mat-card-actions>
+                    </div>
+
+                    <div fxFlex.gt-sm="80" fxFlex.gt-xs="80" fxFlex="100">
+                        <mat-card-actions>
+                            <button
+                                mat-raised-button
+                                (click)="updateRole()"
+                                type="button"
+                                color="primary"
+                            >
+                                <mat-icon>edit</mat-icon>
+                                {{ 'Save' | translate }}
+                            </button>
+                        </mat-card-actions>
+                    </div>
+
+                    <div fxFlex.gt-sm="10" fxFlex.gt-xs="10" fxFlex="100">
+                        <mat-card-actions>
+                            <button
+                                mat-raised-button
+                                (click)="Close()"
+                                type="button"
+                                color="warn"
+                            >
+                                <mat-icon>cancel</mat-icon>
+                                {{ 'Cancel' | translate }}
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

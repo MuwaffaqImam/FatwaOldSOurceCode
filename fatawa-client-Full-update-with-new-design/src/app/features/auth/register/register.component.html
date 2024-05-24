@@ -1,0 +1,220 @@
+<app-shared-header></app-shared-header>
+<main>
+    <section class="fatawi-area section-padding--ptb_120 pb-100 pbsm-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div
+                        class="align-items-center d-flex justify-content-between mb-30 position-relative section-title align-items-center"
+                    >
+                        <h2 class="m-0 title">
+                            {{ 'RegisterToApp' | translate }}
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <form [formGroup]="registerForm">
+                        <div class="row">
+                            <div class="mb-6 col-md-12">
+                                <input
+                                    class="form-control"
+                                    placeholder="{{ 'FullName' | translate }}"
+                                    type="text"
+                                    formControlName="Fullname"
+                                />
+                                <small
+                                    *ngIf="
+                                        registerForm.controls[
+                                            'Fullname'
+                                        ].hasError('required') &&
+                                        registerForm.controls['Fullname']
+                                            .touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludeFullName' | translate
+                                    }}</small
+                                >
+                            </div>
+                            <div class="mb-3 col-md-12"></div>
+                            <div class="mb-6 col-md-12">
+                                <input
+                                    class="form-control"
+                                    placeholder="{{
+                                        'EmailAddress' | translate
+                                    }}"
+                                    type="email"
+                                    formControlName="Email"
+                                />
+                                <small
+                                    *ngIf="
+                                        registerForm.controls['Email'].hasError(
+                                            'required'
+                                        ) &&
+                                        registerForm.controls['Email'].touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludeValidEmailAddress'
+                                            | translate
+                                    }}</small
+                                >
+                                <small
+                                    *ngIf="
+                                        registerForm.controls['Email'].errors
+                                            ?.email &&
+                                        registerForm.controls['Email'].touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludeValidEmailAddress'
+                                            | translate
+                                    }}</small
+                                >
+                            </div>
+                            <div class="mb-3 col-md-12"></div>
+                            <div class="mb-6 col-md-12">
+                                <input
+                                    class="form-control"
+                                    placeholder="{{
+                                        'PhoneNumber' | translate
+                                    }}"
+                                    type="text"
+                                    formControlName="PhoneNumber"
+                                />
+                                <small
+                                    *ngIf="
+                                        registerForm.controls[
+                                            'PhoneNumber'
+                                        ].hasError('required') &&
+                                        registerForm.controls['PhoneNumber']
+                                            .touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludePhoneNo' | translate
+                                    }}</small
+                                >
+                            </div>
+                            <div class="mb-3 col-md-12"></div>
+                            <div class="mb-6 col-md-12">
+                                <input
+                                    class="form-control"
+                                    type="password"
+                                    placeholder="{{ 'Password' | translate }}"
+                                    [pattern]="passwordPattern"
+                                    formControlName="PasswordHash"
+                                />
+                                <small
+                                    *ngIf="
+                                        registerForm.controls[
+                                            'PasswordHash'
+                                        ].hasError('required') &&
+                                        registerForm.controls['PasswordHash']
+                                            .touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludePassword' | translate
+                                    }}</small
+                                >
+                                <small
+                                    *ngIf="
+                                        registerForm.controls[
+                                            'PasswordHash'
+                                        ].hasError('pattern') &&
+                                        registerForm.controls['PasswordHash']
+                                            .touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'PasswordConsistsNumbersAndLetters'
+                                            | translate
+                                    }}</small
+                                >
+                            </div>
+                            <div class="mb-3 col-md-12"></div>
+                            <div class="mb-6 col-md-12">
+                                <input
+                                    class="form-control"
+                                    type="password"
+                                    placeholder="{{
+                                        'ConfirmPassword' | translate
+                                    }}"
+                                    formControlName="ConfirmPassword"
+                                />
+                                <small
+                                    *ngIf="
+                                        registerForm.controls[
+                                            'ConfirmPassword'
+                                        ].hasError('required') &&
+                                        registerForm.controls['ConfirmPassword']
+                                            .touched
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'MustIncludeConfirmPassword' | translate
+                                    }}</small
+                                >
+                                <small
+                                    *ngIf="
+                                        registerForm.controls['ConfirmPassword']
+                                            .value !==
+                                        registerForm.controls['PasswordHash']
+                                            .value
+                                    "
+                                    class="text-danger support-text"
+                                    >{{
+                                        'PasswordsDonotMatch' | translate
+                                    }}</small
+                                >
+                            </div>
+                            <div class="mb-3 col-md-12"></div>
+                            <div class="mb-6 col-md-12"></div>
+
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                class="btn-block btn-lg m-t-20 m-b-20"
+                                type="submit"
+                                (click)="register()"
+                                [disabled]="
+                                    !registerForm.valid ||
+                                    registerForm.controls['ConfirmPassword']
+                                        .value !==
+                                        registerForm.controls['PasswordHash']
+                                            .value
+                                "
+                            >
+                                {{ 'CreateAccount' | translate }}
+                            </button>
+
+                            <div
+                                class="text-center"
+                                fxFlex.gt-sm="100"
+                                fxFlex.gt-xs="100"
+                                fxFlex="100"
+                            >
+                                <span
+                                    >{{ 'AlreadyHaveAccount' | translate }}
+                                    <a
+                                        (click)="loginRedirect()"
+                                        class="link text-info link-hand"
+                                    >
+                                        {{ 'Login' | translate }}</a
+                                    >
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </section>
+</main>

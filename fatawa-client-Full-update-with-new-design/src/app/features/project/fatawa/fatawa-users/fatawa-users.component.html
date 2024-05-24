@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-content>
+        <app-user-edit-control
+            [IsShowAddButton]="false"
+            [IsshowLanguage]="true"
+            SearchPlaceHolder="{{ 'Search' | translate }}"
+            (searchChange)="applyFilter($event)"
+            (languageChange)="applyLanguageFilter($event)"
+        ></app-user-edit-control>
+
+        <app-treeuser
+            (onEditNode)="onActionNodeClick($event)"
+            (onDeleteNode)="onActionNodeClick($event)"
+            (onAddNode)="onActionNodeClick($event)"
+            (onNodeMovedUp)="onActionNodeClick($event)"
+            (onNodeMovedDown)="onActionNodeClick($event)"
+        >
+        </app-treeuser>
+    </mat-card-content>
+</mat-card>

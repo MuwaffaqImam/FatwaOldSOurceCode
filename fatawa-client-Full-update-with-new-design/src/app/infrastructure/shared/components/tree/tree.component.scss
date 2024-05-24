@@ -1,0 +1,41 @@
+.example-tree-invisible {
+    display: none;
+}
+
+.example-tree-rtl ul,
+.example-tree-rtl li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    margin-right: -21px;
+    font-size: 20px;
+}
+
+.example-tree-ltr ul,
+.example-tree-ltr li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    margin-left: -21px;
+    font-size: 20px;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    padding: 5px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: #7692a8;
+}
+
+.mat-tree-node {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    word-wrap: break-word;
+    font-size: 20px;
+}

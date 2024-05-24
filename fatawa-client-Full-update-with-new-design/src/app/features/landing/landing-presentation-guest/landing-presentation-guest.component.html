@@ -1,0 +1,235 @@
+<!-- Start Header Area -->
+
+<app-shared-header></app-shared-header>
+<!-- end Header Area -->
+<span class="shape-1"
+    ><img src="assets/img/shape/shap2.svg" alt="shape-img"
+/></span>
+<!-- hero slider section start -->
+<app-shared-slider
+    *ngIf="
+        _router.url.indexOf('/client/FatawaDescription') &&
+        _router.url.indexOf('/client/Fatawas') &&
+        _router.url.indexOf('/client/department')
+    "
+></app-shared-slider>
+<main>
+    <router-outlet>
+        <app-spinner></app-spinner>
+    </router-outlet>
+</main>
+<!-- Modal video -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+    >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">فيديو 1</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <video controls autoplay>
+                    <source
+                        src="assets\img\video/v1.mp4"
+                        type="video/mp4"
+                        autoplay
+                    />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal signup -->
+<div
+    class="modal fade"
+    id="signup"
+    tabindex="-1"
+    aria-labelledby="sginupLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sginupLabel">إنشاء حساب جديد</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="signup-form form">
+                                <form action="" class="">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <input
+                                                name="fname"
+                                                class="form-control"
+                                                placeholder="الاسم الاول"
+                                                type="text"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <input
+                                                type="text"
+                                                name="Lname"
+                                                class="form-control"
+                                                placeholder="الاسم الثاني"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="البريد الالكتروني"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="تأكيد البريد الاكتروني"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <select id="" class="form-select">
+                                                <option>الدولة</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <div class="input-group">
+                                                <input
+                                                    id="phone"
+                                                    name="phone"
+                                                    type="tel"
+                                                    class="form-control"
+                                                />
+                                                <span class="input-group-addon"
+                                                    >رقم الجوال</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <div class="input-group date">
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="العمر"
+                                                    id="datepicker"
+                                                />
+                                                <div class="input-group-addon">
+                                                    <span
+                                                        class="fa fa-calendar"
+                                                    ></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <div class="btn-group w-100">
+                                                <input
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    name="options"
+                                                    id="option1"
+                                                    autocomplete="off"
+                                                    checked=""
+                                                />
+                                                <label
+                                                    class="border btn btn-primary me-2 p-2 rounded-3"
+                                                    for="option1"
+                                                    >ذكر</label
+                                                >
+                                                <input
+                                                    type="radio"
+                                                    class="btn-check"
+                                                    name="options"
+                                                    id="option2"
+                                                    autocomplete="off"
+                                                />
+                                                <label
+                                                    class="border btn btn-primary p-2 rounded-3"
+                                                    for="option2"
+                                                    >انثى</label
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                class="form-control"
+                                                placeholder="كلمة المرور"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <input
+                                                type="password"
+                                                name="confirmpassword"
+                                                class="form-control"
+                                                placeholder="تأكيد كلمة المرور"
+                                            />
+                                        </div>
+                                        <div class="mb-3 col-md-12">
+                                            <div class="form-check">
+                                                <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    value=""
+                                                    id="flexCheckDefault"
+                                                />
+                                                <label
+                                                    class="form-check-label"
+                                                    for="flexCheckDefault"
+                                                >
+                                                    الاشتراك في النشره البريدية
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button
+                                                class="bg-primary btn btn-primary float-end p-3 rounded-3 text-white w-100"
+                                            >
+                                                تسجيل
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p class="mt-3 text-center text-secondary">
+                                    لديك حساب؟<a
+                                        href="#"
+                                        class="text-bold text-primary ps-2"
+                                        >دخول مستخدم</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer section start -->
+<app-shared-footer></app-shared-footer>
+<!-- footer section end -->
+<!-- Scroll to top start -->
+<div class="scroll-top not-visible">
+    <i class="fa fa-angle-up"></i>
+</div>

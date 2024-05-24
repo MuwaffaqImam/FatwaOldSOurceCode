@@ -1,0 +1,21 @@
+<div class="form-field" [formGroup]="group">
+    <mat-form-field class="form-select">
+        <mat-label>{{ config.label }}</mat-label>
+        <mat-select
+            id="config.name"
+            name="config.name"
+            [formControlName]="config.name"
+        >
+            <label [for]="config.label"></label>
+            <mat-option
+                *ngFor="let option of config.fieldConfig.options"
+                [value]="option.value"
+            >
+                {{ option.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.errors">
+            {{ formControl.errors | formError }}
+        </mat-error>
+    </mat-form-field>
+</div>

@@ -1,0 +1,138 @@
+<div class="example-container mat-elevation-z8" #TABLE>
+    <mat-table #table [dataSource]="gridDataSource" matSort matSortStart="desc">
+        <ng-container
+            [matColumnDef]="column"
+            *ngFor="let column of displayedColumns"
+        >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ column | translate }}
+            </mat-header-cell>
+
+            <ng-container *ngIf="column == 'id'">
+                <mat-cell *matCellDef="let element; let serialNo = index">
+                    {{
+                        paginator.pageIndex * paginator.pageSize +
+                            (serialNo + 1)
+                    }}
+                </mat-cell>
+            </ng-container>
+            <ng-container *ngIf="column != 'id'">
+                <mat-cell *matCellDef="let element">
+                    {{
+                        column === 'createdDate' || column === 'updatedDate'
+                            ? (element[column] | date: 'dd - MM - yyyy')
+                            : element[column]
+                    }}
+                </mat-cell>
+            </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="NoData">
+            <mat-footer-cell *matFooterCellDef>{{
+                'NoDataFound' | translate
+            }}</mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+            <mat-header-cell *matHeaderCellDef>{{
+                'Control' | translate
+            }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <!-- <button mat-icon-button color="primary" (click)="onDeleteClick(row)">
+                <mat-icon>add</mat-icon>{{ 'Add' | translate }}
+              </button>
+                &nbsp;&nbsp;&nbsp;&nbsp; -->
+                <!-- <button mat-icon-button (click)="onChangeLanguageClick(row)">
+                    <mat-icon>language</mat-icon>{{ 'Language' | translate }}</button
+                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                <button mat-icon-button (click)="onEditClick(row)">
+                    <mat-icon>edit</mat-icon>{{ 'Edit' | translate }}</button
+                >&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="onDeleteClick(row)"
+                >
+                    <mat-icon>delete</mat-icon>{{ 'Delete' | translate }}
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container
+            *ngFor="let additionalColumn of additionalColumns; let i = index"
+        >
+            <ng-container matColumnDef="{{ additionalColumn.headerName }}">
+                <mat-header-cell *matHeaderCellDef>
+                    {{ additionalColumn.headerName | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <ng-container *ngIf="additionalColumn.childColumn">
+                        <button
+                            mat-icon-button
+                            color="Primary"
+                            [matMenuTriggerFor]="i"
+                        >
+                            <mat-icon>{{ additionalColumn.icon }}</mat-icon>
+                        </button>
+                        <mat-menu #i="matMenu" yPosition="above">
+                            <ng-container
+                                *ngFor="
+                                    let child of additionalColumn.childColumn
+                                "
+                            >
+                                <button
+                                    mat-menu-item
+                                    (click)="onStatusClick(row, child.status)"
+                                >
+                                    {{ child.name | translate }}
+                                </button>
+                            </ng-container>
+                        </mat-menu>
+                    </ng-container>
+
+                    <ng-container *ngIf="!additionalColumn.childColumn">
+                        <button
+                            mat-icon-button
+                            color="Primary"
+                            (click)="
+                                onStatusClick(row, additionalColumn.status)
+                            "
+                        >
+                            <mat-icon>{{ additionalColumn.icon }}</mat-icon>
+                        </button>
+                    </ng-container>
+                </mat-cell>
+            </ng-container>
+        </ng-container>
+
+        <mat-footer-row
+            *matFooterRowDef="['NoData']"
+            [ngClass]="{ hide: gridDataSource.data.length > 0 }"
+        >
+        </mat-footer-row>
+
+        <mat-header-row *matHeaderRowDef="getDisplayColumns()">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: getDisplayColumns()"> </mat-row>
+    </mat-table>
+
+    <mat-paginator
+        #paginator
+        [length]="lengthData"
+        [pageSize]="pageSize"
+        [pageIndex]="PaginatorIndex"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPaginationClick($event)"
+        showFirstLastButtons
+    >
+    </mat-paginator>
+
+    <button
+        mat-raised-button
+        (click)="exportexcel()"
+        color="primary"
+        *ngIf="isShowExportButton"
+    >
+        {{ 'Export' | translate }}
+    </button>
+</div>

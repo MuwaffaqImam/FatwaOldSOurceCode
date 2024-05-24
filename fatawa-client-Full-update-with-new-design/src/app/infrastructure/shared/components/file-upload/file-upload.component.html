@@ -1,0 +1,91 @@
+<div class="upload-container">
+    <mat-card id="form-card">
+        <mat-card-header>
+            <h2 class="header">{{ title | uppercase }}</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <ng-container *ngIf="validationMessageList?.length">
+                <ul class="message-list success-list">
+                    <li *ngFor="let successMessage of validationMessageList">
+                        {{ successMessage }}
+                    </li>
+                </ul>
+            </ng-container>
+            <ng-container
+                *ngIf="
+                    fileListFormControl?.errors &&
+                    !fileListFormControl?.errors.isRequired
+                "
+            >
+                <ul class="message-list error-list">
+                    <li
+                        *ngFor="
+                            let errorMessage of fileListFormControl.errors
+                                | keyvalue
+                        "
+                    >
+                        {{ errorMessage.value }}
+                    </li>
+                </ul>
+            </ng-container>
+            <ng-container *ngIf="imageUrl; else uploadBox">
+                <img
+                    class="upload-preview"
+                    [src]="imageUrl"
+                    width="400"
+                    alt="upload preview"
+                />
+            </ng-container>
+            <ng-template #uploadBox>
+                <div
+                    class="drop-container"
+                    appDragDropFiles
+                    (emitDropFileList)="onFileSelect($event)"
+                >
+                    <mat-icon
+                        class="drop-icon"
+                        color="primary"
+                        fontSet="material-icons-outlined"
+                        >publish</mat-icon
+                    >
+                    {{ 'DragFileToUpload' | translate }}
+                </div>
+            </ng-template>
+            <form
+                enctype="multipart/form-data"
+                class="form-content"
+                [formGroup]="form"
+                (ngSubmit)="submit()"
+            >
+                <div>
+                    <input
+                        type="file"
+                        name="profile"
+                        [multiple]="fileConfig.canUploadMultiple"
+                        style="display: none"
+                        [accept]="fileConfig.allowedMimeTypeList.join(',')"
+                        (change)="onFileSelect($event.target.files)"
+                        #hiddenfileinput
+                    />
+                    <button
+                        color="primary"
+                        type="button"
+                        mat-raised-button
+                        (click)="hiddenfileinput.click($event)"
+                    >
+                        {{ 'BrowseFiles' | translate | uppercase }}
+                    </button>
+                </div>
+                <div>
+                    <app-save-cancel
+                        *ngIf="formConfig.submit"
+                        [buttonConfig]="formConfig.submit"
+                        [form]="form"
+                        [shouldDisable]="!form?.valid"
+                        (emitSubmit)="submit()"
+                    ></app-save-cancel>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,72 @@
+<form novalidate [formGroup]="UserEditControl">
+    <div fxLayout="row wrap">
+        <ng-container *ngIf="IsShowAddButton">
+            <div class="p-5" fxFlex.gt-sm="30" fxFlex.gt-xs="30" fxFlex="100">
+                <mat-card-actions>
+                    <button
+                        mat-raised-button
+                        (click)="onAddClick()"
+                        type="button"
+                        color="primary"
+                    >
+                        <mat-icon>add</mat-icon> {{ 'Add' | translate }}
+                    </button>
+                </mat-card-actions>
+            </div>
+        </ng-container>
+        <div class="p-5" fxFlex.gt-sm="50" fxFlex.gt-xs="50" fxFlex="100">
+            <div class="input-group no-border">
+                <mat-form-field>
+                    <input
+                        matInput
+                        id="searchInput"
+                        formControlName="searchInput"
+                        type="text"
+                        autocomplete="off"
+                        (keyup.enter)="applyFilter($event)"
+                        (ngModelChange)="applyFilter($event)"
+                        (input)="applyFilter($event)"
+                        placeholder="{{ SearchPlaceHolder }}"
+                    />
+                    <mat-icon
+                        matSuffix
+                        *ngIf="!UserEditControl.controls.searchInput.value"
+                    >
+                        search</mat-icon
+                    >
+                    <mat-icon
+                        matSuffix
+                        *ngIf="UserEditControl.controls.searchInput.value"
+                        title="Clear"
+                        (click)="onClearSearchBox()"
+                        >close</mat-icon
+                    >
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div
+            class="p-5"
+            fxFlex.gt-sm="50"
+            fxFlex.gt-xs="50"
+            fxFlex="100"
+            *ngIf="IsshowLanguage"
+        >
+            <div class="input-group no-border">
+                <mat-form-field>
+                    <mat-select
+                        placeholder="{{ 'Languages' | translate }}"
+                        (selectionChange)="applyLanguageFilter($event.value)"
+                    >
+                        <mat-option
+                            *ngFor="let language of languages"
+                            [value]="language.id"
+                        >
+                            {{ language.languageDefaultDisply }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+</form>

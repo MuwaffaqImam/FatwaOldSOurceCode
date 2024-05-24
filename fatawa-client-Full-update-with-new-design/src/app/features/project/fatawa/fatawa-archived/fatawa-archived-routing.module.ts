@@ -1,0 +1,18 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { FatawaArchivedListComponent } from './fatawa-archived-list/fatawa-archived-list.component';
+
+export const routes: Routes = [
+    {
+        path: '',
+        component: FatawaArchivedListComponent,
+    },
+];
+
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+})
+export class FatawaArchivedRoutingModule {}
+
+export const components = [FatawaArchivedListComponent];

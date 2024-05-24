@@ -1,0 +1,26 @@
+@import '../../../../../assets/styles/variable';
+
+#form-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+mat-card-content {
+  padding: 40px;
+}
+
+.header {
+  margin: 0 auto;
+}
+
+:host ::ng-deep .mat-card-header-text {
+  margin: 0;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  background: rgba($light-primary, .31);
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}

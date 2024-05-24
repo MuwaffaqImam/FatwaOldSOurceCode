@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-content>
+        <app-user-edit-control
+            (notify)="addControl($event)"
+            (searchChange)="applyFilter($event)"
+            SearchPlaceHolder="Search"
+        >
+        </app-user-edit-control>
+        <app-data-grid-view
+            [gridDataSource]="dataSource"
+            [displayedColumns]="['tagName']"
+            (onEditRow)="onActionRowGrid($event)"
+            (onDeleteRow)="onActionRowGrid($event)"
+            (onPagination)="onActionRowGrid($event)"
+            [lengthData]="length"
+            [PaginatorIndex]="paginationIndex"
+        >
+        </app-data-grid-view>
+    </mat-card-content>
+</mat-card>

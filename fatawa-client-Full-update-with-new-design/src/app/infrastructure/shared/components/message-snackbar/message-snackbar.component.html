@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="message-container">
+        <ng-container *ngFor="let message of messageList">
+            <div class="message">
+                {{ message }}
+            </div>
+        </ng-container>
+    </div>
+    <button mat-button type="button" #dismissButton (click)="dismiss()">
+        X
+    </button>
+</div>

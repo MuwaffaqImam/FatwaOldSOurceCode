@@ -1,0 +1,179 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title *ngIf="this.isAdd">Add New</mat-card-title>
+                <mat-card-title *ngIf="this.isEdit">Edit</mat-card-title>
+                <form [formGroup]="editorForm" class="basic-form">
+                    <div fxLayout="row wrap">
+                        <mat-form-field>
+                            <mat-select
+                                placeholder="Assistant"
+                                formControlName="assistantId"
+                            >
+                                <mat-option
+                                    *ngFor="let assistant of assistants"
+                                    [value]="assistant.userId"
+                                >
+                                    {{ assistant.userName }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Fatwa Name"
+                                    formControlName="name"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option
+                                        *ngFor="
+                                            let translator of translatorsFiltered
+                                        "
+                                        [value]="translator"
+                                    >
+                                        {{ translator }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <input
+                                    matInput
+                                    placeholder="Translator Name"
+                                    formControlName="translatorName"
+                                    [matAutocomplete]="auto"
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-form-field>
+                                <mat-select
+                                    placeholder="Mufti"
+                                    formControlName="muftiId"
+                                >
+                                    <mat-option
+                                        *ngFor="let mufti of muftiList"
+                                        [value]="mufti.userId"
+                                    >
+                                        {{ mufti.userName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <mat-form-field>
+                            <mat-select
+                                placeholder="Fatawa Types"
+                                formControlName="fatawaTypeId"
+                            >
+                                <mat-option
+                                    *ngFor="let fatawaType of fatawaTypes"
+                                    [value]="fatawaType.id"
+                                >
+                                    {{ fatawaType.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select
+                                placeholder="Fatawa Deparments"
+                                formControlName="fatawaDepartmentId"
+                            >
+                                <mat-option
+                                    *ngFor="
+                                        let fatawaDepartmen of fatawaDepartmens
+                                    "
+                                    [value]="fatawaDepartmen.id"
+                                >
+                                    {{ fatawaDepartmen.nodeName }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select
+                                placeholder="Mathhabs"
+                                formControlName="fatawaMathhabId"
+                            >
+                                <mat-option
+                                    *ngFor="let mathhab of mathhabs"
+                                    [value]="mathhab.id"
+                                >
+                                    {{ mathhab.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <textarea
+                                matInput
+                                class="filled"
+                                placeholder="Description"
+                                formControlName="description"
+                                autocomplete="off"
+                                matTextareaAutosize
+                                matAutosizeMinRows="3"
+                                required
+                            ></textarea>
+                        </div>
+                        <hr />
+                        <div fxFlex.gt-md="100" fxFlex="100">
+                            <mat-chip-list #chipList aria-label="Tag selection">
+                                <mat-chip
+                                    *ngFor="let tag of tags"
+                                    [selectable]="selectable"
+                                    [removable]="removable"
+                                    (removed)="removeTag(tag)"
+                                >
+                                    {{ tag.name }}
+                                    <mat-icon matChipRemove *ngIf="removable"
+                                        >cancel</mat-icon
+                                    >
+                                </mat-chip>
+                                <input
+                                    placeholder="New tag..."
+                                    [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="
+                                        separatorKeysCodes
+                                    "
+                                    [matChipInputAddOnBlur]="addOnBlur"
+                                    (matChipInputTokenEnd)="addTag($event)"
+                                />
+                            </mat-chip-list>
+                        </div>
+                        <hr />
+                        <br />
+                        <app-file-upload
+                            class="inline-block"
+                            [fileConfig]="fileConfig"
+                            [fileListFormControl]="fileListFormControl"
+                            [form]="formGroup"
+                            [formConfig]="formConfig"
+                            [title]="'Document Upload'"
+                            [validationMessageList]="validationMessageList"
+                            (emitFileSelect)="onFileSelect($event)"
+                            (emitSubmit)="uploadDocument()"
+                        ></app-file-upload>
+                        <img
+                            [src]="imageBase64 | async"
+                            alt="Fatawa default image"
+                            class="inline-block img-responsive"
+                        />
+
+                        <div fxFlex.gt-sm="100" fxFlex="100">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="!editorForm.valid || isInProgress"
+                                class="submit-btns"
+                                (click)="submitFatawa()"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
